@@ -1,0 +1,11 @@
+/target/
+/Reports/
+/test-output/
+/Downloads/
+.settings
+.classpath
+.project
+/logs/
+/reports/
+
+

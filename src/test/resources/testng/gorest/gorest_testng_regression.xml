@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GoRestSuite" parallel="methods" thread-count="1">
+    <listeners>
+        <listener class-name="com.framework.core.report.TestNGListener" />
+    </listeners>
+
+    <parameter name="envName" value="qa" />
+
+    <test name="UsersRegressionTest">
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.gorest.tests.UsersWithRestClientTest" />
+        </classes>
+    </test>
+</suite>

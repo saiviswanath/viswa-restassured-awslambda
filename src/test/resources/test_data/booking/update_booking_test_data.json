@@ -1,0 +1,22 @@
+[
+  {
+  	"id": 680,
+    "firstname" : "Sai",
+    "lastname" : "Palaparthi",
+    "totalprice" : "111",
+    "depositpaid" : "true",
+	"bookingdatescheckin" : "2023-01-01",
+    "bookingdatescheckout" : "2024-01-01",
+    "additionalneeds" : "Breakfast"
+  },
+  {
+  	"id": 1017,
+    "firstname" : "Viswa",
+    "lastname" : "Palaparthi",
+    "totalprice" : 120,
+    "depositpaid" : true,
+    "bookingdatescheckin" : "2014-11-01",
+    "bookingdatescheckout" : "2024-11-10",
+    "additionalneeds" : "Internet"
+  }
+]

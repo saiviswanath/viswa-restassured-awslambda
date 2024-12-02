@@ -1,0 +1,12 @@
+[
+	{
+		"bookingid": 680,
+	    "firstname" : "Padma",
+	    "lastname" : "Palaparthi"
+	},
+	{
+		"bookingid": 1017,
+	    "firstname" : "Viswa",
+	    "lastname" : "Palaparthi"
+	}
+]
