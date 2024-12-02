@@ -23,7 +23,7 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String,String
         
         TestNG testng = new TestNG();
         List<String> suites = Lists.newArrayList();
-        suites.add("src/test/resources/testng/booking/booking-testng.xml");//path to xml..
+        suites.add("booking-testng.xml");//path to xml..
         testng.setTestSuites(suites);
         testng.run();
         
