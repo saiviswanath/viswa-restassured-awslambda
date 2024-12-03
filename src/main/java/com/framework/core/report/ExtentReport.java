@@ -1,5 +1,7 @@
 package com.framework.core.report;
 
+import java.io.File;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -25,7 +27,7 @@ public class ExtentReport extends Report{
         
         reportFileName = "Run_";
 
-        reportFileName = MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + "\\" + reportFileName
+        reportFileName = MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + File.separator + reportFileName
 				+ MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + "_"
 				+ MiscUtilities.getTimeStamp("local").replace("-", "").replace(":", "");
         
