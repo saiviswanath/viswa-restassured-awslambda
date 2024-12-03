@@ -79,7 +79,7 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
 	
 	        String s3ObjectKey = MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + File.separator + reportFileName
 					+ MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + "_"
-					+ MiscUtilities.getTimeStamp("local").replace("-", "").replace(":", "");
+					+ MiscUtilities.getTimeStamp("local").replace("-", "").replace(":", "") + ".html";
 	        
 	        logger.log("S3 Dest Object key: " + s3ObjectKey);
 	        
@@ -95,6 +95,7 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
 	        s3.putObject(putOb, RequestBody.fromFile(new File(reportPath.toString())));
 	        } catch (S3Exception e) {
 				logger.log("S3 Error occured");
+				e.printStackTrace();
 				return "FAIL: S3 Error Occurred";
 			}
     	} else {
