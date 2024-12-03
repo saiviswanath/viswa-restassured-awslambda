@@ -1,6 +1,8 @@
 package com.booking.awslambda;
 
+import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 import org.testng.TestNG;
 import org.testng.collections.Lists;
@@ -14,24 +16,24 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3ClientBuilder;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-public class AWSLambdaApiTestHandler implements RequestHandler<String, String> {
+public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, String>, String> {
     //private static final LambdaClient lambdaClient = LambdaClient.builder().build();
     @Override
-    public String handleRequest(String event, Context context) {
+    public String handleRequest(Map<String, String> event, Context context) {
 
         LambdaLogger logger = context.getLogger();
         logger.log("Handler invoked");
         
-        String[] arr = event.split(",");
+        
+        String[] arr = event.get("testngfile").split(",");
         
         TestNG testng = new TestNG();
         List<String> suites = Lists.newArrayList();
         
         for (String s : arr) {
         	logger.log("Adding " + s + " to suite execution");
-	        ClassLoader classLoader = getClass().getClassLoader();
-	        String testngpath = classLoader.getResource(s).getPath();
-	        suites.add(testngpath);//path to xml..
+        	String path = System.getProperty("user.dir") + "/" + s;
+        	suites.add(path);//path to xml..
         }
         
         testng.setTestSuites(suites);
