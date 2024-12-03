@@ -1,5 +1,6 @@
 package com.booking.awslambda;
 
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
         for (String s : arr) {
         	logger.log("Adding " + s + " to suite execution");
         	String path = System.getProperty("user.dir") + "/" + s;
+        	logger.log("Path actual: " + path);
         	suites.add(path);//path to xml..
         }
         
