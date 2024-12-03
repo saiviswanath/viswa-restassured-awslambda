@@ -39,7 +39,6 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
         	return response;
         }
  
-        //TODO: Reports to AWS S3 post suite run using s3 sdk
         String s3Bucket = System.getenv("REPORT_S3_BUCKET");
         response = copyReportsToS3(s3Bucket, logger);
        
@@ -72,7 +71,8 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
     
     private String copyReportsToS3(String s3Bucket, LambdaLogger logger) {
     	//TODO: Reports to AWS S3 post suite run using s3 sdk
-    	Path reportPath = getLatestReportFile(s3Bucket, logger);
+    	String reportDir = "/tmp/reports/extent/" + MiscUtilities.dateFormat("T+0", "MM_dd_yyyy");
+    	Path reportPath = getLatestReportFile(reportDir, logger);
     	if (reportPath != null) {
     	
 	        String reportFileName = "Run_";
