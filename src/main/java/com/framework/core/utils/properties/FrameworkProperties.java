@@ -5,7 +5,7 @@ import com.framework.core.utils.files.FileUtils;
 import java.io.FileReader;
 
 public class FrameworkProperties {
-    private static final String FRAMEWORK_PROP = "/framework.properties";
+    private static final String FRAMEWORK_PROP = "/var/task/framework.properties";
     private static PropertiesUtils frameworkProperties;
     private static void loadFrameworkProperties(){
         FileReader frameworkPropertiesFileReader = FileUtils.getFileReader(FRAMEWORK_PROP);

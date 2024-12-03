@@ -19,7 +19,7 @@ public class FileUtils {
         }
     }
     public static FileReader getFileReader(String filePath){
-        String absoluteFilePath = System.getProperty("user.dir") + filePath;
+        String absoluteFilePath = filePath;
         try{
             return new FileReader(absoluteFilePath);
         }
@@ -28,7 +28,7 @@ public class FileUtils {
         }
     }
     public static File getFile(String filePath){
-        String absoluteFilePath = System.getProperty("user.dir") + filePath;
+        String absoluteFilePath = filePath;
         try{
             return new File(absoluteFilePath);
         }
