@@ -32,6 +32,11 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
         logger.log("Handler invoked");
         String response = "SUCCESS";
         
+        boolean reportDirDeleteStatus = deleteDirectory(new File("/tmp/reports/extent/" + MiscUtilities.dateFormat("T+0", "MM_dd_yyyy")));
+        if (!reportDirDeleteStatus) {
+        	return "FAIL: Failed to delete report files";
+        }
+        
         String testngFiles = System.getenv("TESTNG_FILES");
         response = executeTestNGSuiteFIles(testngFiles, logger);
         
@@ -70,7 +75,6 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
     }
     
     private String copyReportsToS3(String s3Bucket, LambdaLogger logger) {
-    	//TODO: Reports to AWS S3 post suite run using s3 sdk
     	String reportDir = "/tmp/reports/extent/" + MiscUtilities.dateFormat("T+0", "MM_dd_yyyy");
     	Path reportPath = getLatestReportFile(reportDir, logger);
     	if (reportPath != null) {
@@ -80,7 +84,7 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
 	        String s3ObjectKey = MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + File.separator + reportFileName
 					+ MiscUtilities.dateFormat("T+0", "MM_dd_yyyy") + "_"
 					+ MiscUtilities.getTimeStamp("local").replace("-", "").replace(":", "") + ".html";
-	        
+	        logger.log("Report path on tmp: " + reportPath.toString());
 	        logger.log("S3 Dest Object key: " + s3ObjectKey);
 	        
 	        try {
@@ -124,5 +128,15 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
         }
 
         return null;
+    }
+    
+    private boolean deleteDirectory(File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteDirectory(file);
+            }
+        }
+        return directoryToBeDeleted.delete();
     }
 }
