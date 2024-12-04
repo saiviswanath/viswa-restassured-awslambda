@@ -131,12 +131,16 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
     }
     
     private boolean deleteDirectory(File directoryToBeDeleted) {
-        File[] allContents = directoryToBeDeleted.listFiles();
-        if (allContents != null) {
-            for (File file : allContents) {
-                deleteDirectory(file);
-            }
-        }
-        return directoryToBeDeleted.delete();
+    	boolean readyToDelete = true;
+    	if (directoryToBeDeleted.exists()) {
+	        File[] allContents = directoryToBeDeleted.listFiles();
+	        if (allContents != null) {
+	            for (File file : allContents) {
+	                deleteDirectory(file);
+	            }
+	        }
+	        readyToDelete = directoryToBeDeleted.delete();
+    	}
+        return readyToDelete;
     }
 }
