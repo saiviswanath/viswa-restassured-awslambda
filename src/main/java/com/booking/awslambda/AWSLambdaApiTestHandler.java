@@ -32,10 +32,7 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
         logger.log("Handler invoked");
         String response = "SUCCESS";
         
-        boolean reportDirDeleteStatus = deleteDirectory(new File("/tmp/reports/extent/" + MiscUtilities.dateFormat("T+0", "MM_dd_yyyy")));
-        if (!reportDirDeleteStatus) {
-        	return "FAIL: Failed to delete report files";
-        }
+        deleteFolder(new File("/tmp/reports"));
         
         String testngFiles = System.getenv("TESTNG_FILES");
         response = executeTestNGSuiteFIles(testngFiles, logger);
@@ -130,17 +127,17 @@ public class AWSLambdaApiTestHandler implements RequestHandler<Map<String, Strin
         return null;
     }
     
-    private boolean deleteDirectory(File directoryToBeDeleted) {
-    	boolean readyToDelete = true;
-    	if (directoryToBeDeleted.exists()) {
-	        File[] allContents = directoryToBeDeleted.listFiles();
-	        if (allContents != null) {
-	            for (File file : allContents) {
-	                deleteDirectory(file);
-	            }
-	        }
-	        readyToDelete = directoryToBeDeleted.delete();
-    	}
-        return readyToDelete;
+    private boolean deleteFolder(File path) {
+        if (path.exists()) {
+            File[] files = path.listFiles();
+            for (File f : files) {
+                if (f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+        return path.delete();
     }
 }
